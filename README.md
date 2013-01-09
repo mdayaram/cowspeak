@@ -13,12 +13,20 @@ Like cowsay, only that it speaks too!  Unfortunately, only supported in Linux an
  * say (darwin)
  * cat
 
+
 ### Usage
 
 ``` bash
 $> cowspeak "Fabricator fabricator, yon pantaloons are aflame" 
 $> fortune | cowspeak
 ```
+
+
+### Future Work
+
+* Be able to parse all flags that cowsay uses and pass them along.
+* Add a -r flag to trigger the random cowfile picking, otherwise default to cow.
+
 
 ### Misc
 
