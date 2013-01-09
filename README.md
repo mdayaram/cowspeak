@@ -3,7 +3,7 @@ CowSpeak
 
 Authors: [Manoj Dayaram](https://github.com/mdayaram), [Brian Kendzior](https://github.com/bkendzior)
 
-Like cowsay, only that it speaks too!  Unfortunately, only supported in Linux and Mac OS X forever.
+Like cowsay, only that it speaks too!  Unfortunately, only supported in Linux and Mac OS X for ever.
 
 ### Dependencies:
  * cowsay
