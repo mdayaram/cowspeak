@@ -21,9 +21,10 @@ function random_cowfile {
 # not to run normally.
 #
 SKIP_SPEAK=""
-ARGS=`getopt e:f:T:W:bdghlLnNpstwyr $@`
-## Error checking?
+ARGS=`getopt e:f:T:W:bdghlLnNpstwyr $*`
+[ $? != 0 ] && exit 1
 set -- $ARGS
+
 OPTIONS=""
 for i; do
 	case "$i" in
@@ -38,7 +39,7 @@ for i; do
 done
 ############# Done command line options parsing #################
 
-SPEECH=$@   # Arguments left should be what our cow is saying.
+SPEECH=$*   # Arguments left should be what our cow is saying.
 OS=`uname`  # Needed to figure out with text to speech engine to use.
 
 if [ -z "$SPEECH" -a -z "$SKIP_SPEAK" ]; then
