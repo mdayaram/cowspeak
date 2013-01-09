@@ -15,7 +15,7 @@ Like cowsay, only that it speaks too!  Unfortunately, only supported in Linux an
 ### Usage
 
 ``` bash
-$> cowspeak "Fabricator fabricator yon pantaloons are aflame" 
+$> cowspeak "Fabricator fabricator, yon pantaloons are aflame" 
 $> fortune | cowspeak
 ```
 
