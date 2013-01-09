@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+############################################################
+# Prints out a random cow file saying something from fortune
+# while also audibly saying the fortune.
+#
+# Dependencies:
+# * cowsay
+# * wc
+# * espeak (linux)
+# * say (darwin)
+# * cat
+############################################################
+
+function cowspeak {
+	local COWFILE=""
+	local SPEECH=$1
+	if [ -z "$COWFILE" ]; then
+		local COWLIST=`cowsay -l | tail -n +2`
+		local COWNUM=$((RANDOM%`echo $COWLIST | wc -w`+1)) # cut indexes start at 1
+		local COWFILE=`echo $COWLIST | cut -d \  -f $COWNUM`
+	fi
+
+	if [ -z "$SPEECH" ]; then
+		# Read from stdin
+		local SPEECH=`cat "/dev/stdin"`
+	fi
+	
+	local OS=`uname`
+	cowsay -f "$COWFILE" "$SPEECH"
+	
+	if [ "$OS" == "Linux" ]; then
+		(espeak "$SPEECH" > /dev/null 2>&1)&
+	elif [ "$OS" == "Darwin" ]; then
+		(say "$SPEECH" > /dev/null 2>&1)&
+	#else
+		# Sorry, other systems not supported.
+	fi
+
+}
+
+cowspeak
