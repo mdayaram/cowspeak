@@ -1,30 +1,62 @@
 #!/usr/bin/env bash
 
-function cowspeak {
-	local COWFILE=""
-	local SPEECH=$@
-	if [ -z "$COWFILE" ]; then
+#############################################################
+# Pick a random cowfile, used if the -r option is passed in.
+# Not a standard cowsay option.
+#
+function random_cowfile {
 		local COWLIST=`cowsay -l | tail -n +2`
-		local COWNUM=$((RANDOM%`echo $COWLIST | wc -w`+1)) # cut indexes start at 1
+		local COWNUM=$((RANDOM%`echo $COWLIST | wc -w`+1)) # +1 because cut indexes start at 1
 		local COWFILE=`echo $COWLIST | cut -d \  -f $COWNUM`
-	fi
-
-	if [ -z "$SPEECH" ]; then
-		# Read from stdin
-		local SPEECH=`cat "/dev/stdin"`
-	fi
-	
-	local OS=`uname`
-	cowsay -f "$COWFILE" "$SPEECH"
-	
-	if [ "$OS" == "Linux" ]; then
-		(espeak "$SPEECH" > /dev/null 2>&1)&
-	elif [ "$OS" == "Darwin" ]; then
-		(say "$SPEECH" > /dev/null 2>&1)&
-	#else
-		# Sorry, other systems not supported.
-	fi
-
+		echo $COWFILE
 }
 
-cowspeak $@
+##################################################################
+# Parse the command line options, all of these are cowsay options
+# except for -r which we implement ourself.  Some options don't
+# actually run cowsay, but output other information, keep track
+# of those so that we don't run the speech engine.
+#
+# Skip running speech engine if one of the commands causes cowsay
+# not to run normally.
+#
+SKIP_SPEAK=""
+ARGS=`getopt e:f:T:W:bdghlLnNpstwyr $@`
+## Error checking?
+set -- $ARGS
+OPTIONS=""
+for i; do
+	case "$i" in
+		-r )	OPTIONS="$OPTIONS -f $(random_cowfile)"; shift ;;
+		-- )	OPTIONS="$OPTIONS --"; shift; break ;;
+		*  )	OPTIONS="$OPTIONS $i"; shift;
+					case "$i" in
+						-h ) SKIP_SPEAK="true" ;;
+						-l ) SKIP_SPEAK="true" ;;
+					esac ;;
+	esac
+done
+############# Done command line options parsing #################
+
+SPEECH=$@   # Arguments left should be what our cow is saying.
+OS=`uname`  # Needed to figure out with text to speech engine to use.
+
+if [ -z "$SPEECH" -a -z "$SKIP_SPEAK" ]; then
+	# If no speech is given in the command line, read from stdin
+	SPEECH=`cat "/dev/stdin"`
+fi
+
+cowsay $OPTIONS "$SPEECH"
+ret=$?
+[ "$ret" != "0" ] && exit $ret
+[ -n "$SKIT_SPEAK" ] && exit 0
+
+if [ "$OS" == "Linux" ]; then
+	(espeak "$SPEECH" > /dev/null 2>&1)&
+elif [ "$OS" == "Darwin" ]; then
+	(say "$SPEECH" > /dev/null 2>&1)&
+#else
+	# Sorry, other systems not supported.
+fi
+
+

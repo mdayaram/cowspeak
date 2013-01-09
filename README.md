@@ -12,6 +12,7 @@ Like cowsay, only that it speaks too!  Unfortunately, only supported in Linux an
  * espeak (linux)
  * say (darwin)
  * cat
+ * getopt
 
 
 ### Usage
@@ -19,13 +20,9 @@ Like cowsay, only that it speaks too!  Unfortunately, only supported in Linux an
 ``` bash
 $> cowspeak "Fabricator fabricator, yon pantaloons are aflame" 
 $> fortune | cowspeak
+$> cowspeak -r "This will choose a random cowfile"
+$> cowspeak -t -f sheep "All cowsay command line flags are passed through appropriately"
 ```
-
-
-### Future Work
-
-* Be able to parse all flags that cowsay uses and pass them along (need getopt).
-* Add a -r flag to trigger the random cowfile picking, otherwise default to cow.
 
 
 ### Misc
