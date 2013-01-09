@@ -24,7 +24,7 @@ $> fortune | cowspeak
 
 ### Future Work
 
-* Be able to parse all flags that cowsay uses and pass them along.
+* Be able to parse all flags that cowsay uses and pass them along (need getopt).
 * Add a -r flag to trigger the random cowfile picking, otherwise default to cow.
 
 
