@@ -2,7 +2,7 @@
 
 function cowspeak {
 	local COWFILE=""
-	local SPEECH=$1
+	local SPEECH=$@
 	if [ -z "$COWFILE" ]; then
 		local COWLIST=`cowsay -l | tail -n +2`
 		local COWNUM=$((RANDOM%`echo $COWLIST | wc -w`+1)) # cut indexes start at 1
@@ -27,4 +27,4 @@ function cowspeak {
 
 }
 
-cowspeak
+cowspeak $@
