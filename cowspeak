@@ -1,17 +1,5 @@
 #!/usr/bin/env bash
 
-############################################################
-# Prints out a random cow file saying something from fortune
-# while also audibly saying the fortune.
-#
-# Dependencies:
-# * cowsay
-# * wc
-# * espeak (linux)
-# * say (darwin)
-# * cat
-############################################################
-
 function cowspeak {
 	local COWFILE=""
 	local SPEECH=$1
