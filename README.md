@@ -6,6 +6,7 @@ Authors: [Manoj Dayaram](https://github.com/mdayaram), [Brian Kendzior](https://
 Like cowsay, only that it speaks too!  Unfortunately, only supported in Linux and Mac OS X for ever.
 
 ### Dependencies:
+
  * cowsay
  * wc
  * espeak (linux)
@@ -18,6 +19,8 @@ Like cowsay, only that it speaks too!  Unfortunately, only supported in Linux an
 $> cowspeak "Fabricator fabricator, yon pantaloons are aflame" 
 $> fortune | cowspeak
 ```
+
+### Misc
 
 Check out [Brian's version](https://github.com/bkendzior/briangle-bashrc/blob/master/.bashrc#L86) which was the start of this guy.
 
