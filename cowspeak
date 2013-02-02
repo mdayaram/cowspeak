@@ -49,8 +49,7 @@ fi
 
 cowsay $OPTIONS "$SPEECH"
 ret=$?
-[ "$ret" != "0" ] && exit $ret
-[ -n "$SKIT_SPEAK" ] && exit 0
+[ "$ret" != "0" -o -n "$SKIP_SPEAK" ] && exit $ret
 
 if [ "$OS" == "Linux" ]; then
 	(espeak "$SPEECH" > /dev/null 2>&1)&
@@ -59,5 +58,4 @@ elif [ "$OS" == "Darwin" ]; then
 #else
 	# Sorry, other systems not supported.
 fi
-
 
